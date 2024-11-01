@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  swarm:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        USER_UID: 1000
+        USER_GID: 1000
+    image: swarm:latest
+    container_name: swarm
+    network_mode: host
+    working_dir: /home/quetzal/git/swarm
+    volumes:
+      - type: bind
+        source: $HOME/git/swarm
+        target: /home/quetzal/git/swarm
+        consistency: delegated
+    command: tail -f /dev/null
